@@ -1,10 +1,10 @@
 using System.Collections;
-using UnityEngine;
-using System;
 using System.Reflection;
+using UnityEngine;
 
 public class InitSceneLoader : SingleTonMonoBehaviour<InitSceneLoader>
 {
+    //ох╪сть dll
     public IEnumerator Init()
     {
         string assetPath = "Assets/ResourceABs/InitScene/ScriptsRef.prefab";
