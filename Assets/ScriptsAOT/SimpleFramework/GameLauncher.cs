@@ -50,6 +50,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
     {
         yield return 0;
         //yield return ResCenter.Instance.AsyncInit();
-        //LuaMainEnv.Instance.Init();
+        yield return MainSceneLoader.Instance.Init();
+        MainSceneLoader.Instance.LoadScene();
     }
 }

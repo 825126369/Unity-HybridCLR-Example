@@ -2,17 +2,17 @@ using System.Collections;
 using System.Reflection;
 using UnityEngine;
 
-public class InitSceneLoader : SingleTonMonoBehaviour<InitSceneLoader>
+public class MainSceneLoader : SingleTonMonoBehaviour<MainSceneLoader>
 {
     //先加载 dll
     public IEnumerator Init()
     {
-        string assetPath = "Assets/ResourceABs/InitScene/ScriptsRef.prefab";
+        string assetPath = "Assets/ResourceABs/ThemePoker/ScriptsRef.prefab";
         yield return AssetsLoader.Instance.AsyncLoadSingleAsset(assetPath);
         GameObject go = AssetsLoader.Instance.GetAsset(assetPath) as GameObject;
         var mCommonResSerialization = go.GetComponent<CommonResSerialization>();
 
-        string dllName = "ScriptsHotFix_InitScene";
+        string dllName = "ScriptsHotFix";
         var mText1 = mCommonResSerialization.FindTextAsset(dllName + ".dll");
         var mText2 = mCommonResSerialization.FindTextAsset(dllName + ".pdb");
         byte[] assData2 = mText1.bytes;
@@ -21,14 +21,14 @@ public class InitSceneLoader : SingleTonMonoBehaviour<InitSceneLoader>
     }
 
     //先加载 dll, 然后挂在这个Prefab下的 脚本才会运行
-    public void LoadInitScene()
+    public void LoadScene()
     {
-        var goPreafb = AssetsLoader.Instance.GetAsset("Assets/ResourceABs/InitScene/InitSceneEntry.prefab") as GameObject;
-        var go = Instantiate<GameObject>(goPreafb);
-        go.transform.position = Vector3.zero;
-        go.transform.rotation = Quaternion.identity;
-        go.transform.localScale = Vector3.one;
-        go.SetActive(true);
-    }
+        SceneMgr.Instance.LoadSceneAsync("Poker", (float fPercent)=>
+        {
 
+        },()=>
+        {
+            InitSceneLoader.readOnlyInstance.UnLoad();
+        });
+    }
 }
