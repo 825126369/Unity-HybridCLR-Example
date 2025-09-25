@@ -13,8 +13,10 @@ public class AddressableGroupContentEditor
         Debug.Log("Create BundleResPreafb: --------------------------------");
         List<string> mBundleFolderNameList = new List<string>();
         mBundleFolderNameList.Add("Assets/ResourceABs/InitScene/");
-        mBundleFolderNameList.Add("Assets/ResourceABs/Lua/");
-        mBundleFolderNameList.Add("Assets/ResourceABs/ThemeSolitaire/");
+        mBundleFolderNameList.Add("Assets/ResourceABs/HotFixScripts/");
+        mBundleFolderNameList.Add("Assets/ResourceABs/Material/");
+        mBundleFolderNameList.Add("Assets/ResourceABs/Prefabs/");
+        mBundleFolderNameList.Add("Assets/ResourceABs/ThemePoker/");
 
         foreach (var dirPath in mBundleFolderNameList)
         {
@@ -35,8 +37,10 @@ public class AddressableGroupContentEditor
     {
         List<string> mBundleFolderNameList = new List<string>();
         mBundleFolderNameList.Add("Assets/ResourceABs/InitScene/");
-        mBundleFolderNameList.Add("Assets/ResourceABs/Lua/");
-        mBundleFolderNameList.Add("Assets/ResourceABs/ThemeSolitaire/");
+        mBundleFolderNameList.Add("Assets/ResourceABs/HotFixScripts/");
+        mBundleFolderNameList.Add("Assets/ResourceABs/Material/");
+        mBundleFolderNameList.Add("Assets/ResourceABs/Prefabs/");
+        mBundleFolderNameList.Add("Assets/ResourceABs/ThemePoker/");
 
         foreach (var dirPath in mBundleFolderNameList)
         {

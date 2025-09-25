@@ -15,6 +15,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         Application.runInBackground = !GameConst.isMobilePlatform();
         Application.targetFrameRate = 60;
         LeanTween.init();
+        UnityMainThreadDispatcher.Instance.Init();
         StartCoroutine(StartInitSystem());
     }
 

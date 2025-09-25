@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
 public class InitSceneHotUpdateManager : MonoBehaviour
@@ -19,21 +18,23 @@ public class InitSceneHotUpdateManager : MonoBehaviour
 
     public IEnumerator CheckHotUpdate()
     {
-        //VersionUpdateTimeCheck.Instance.Do();
-        //yield return InitSceneVersionCheck.CheckCSharpVersionConfig();
-        //if (InitSceneVersionCheck.orHaveError())
-        //{
-        //    DoUpdateError();
-        //    yield break;
-        //}
-        
-        //if (InitSceneVersionCheck.orNeedUpdateInLauncher())
-        //{
-        //    DoUpdateInLauncher();
-        //    yield break;
-        //}
+#if !UNITY_EDITOR
+        VersionUpdateTimeCheck.Instance.Do();
+        yield return InitSceneVersionCheck.CheckCSharpVersionConfig();
+        if (InitSceneVersionCheck.orHaveError())
+        {
+            DoUpdateError();
+            yield break;
+        }
 
-        //TestUserManager.Print();
+        if (InitSceneVersionCheck.orNeedUpdateInLauncher())
+        {
+            DoUpdateInLauncher();
+            yield break;
+        }
+#endif
+
+        TestUserManager.Print();
         yield return CheckHotUpdateRes();
     }
 

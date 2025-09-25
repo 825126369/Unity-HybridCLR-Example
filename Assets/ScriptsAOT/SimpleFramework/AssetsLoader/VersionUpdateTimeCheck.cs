@@ -9,6 +9,7 @@ public class VersionUpdateTimeCheckConfig
     public Dictionary<string, ulong> mUpdateTimeDic = new Dictionary<string, ulong>();
 }
 
+// 检查是否拉取的WWW内容是 老内容，有可能Google的云存储 有延迟，导致测试某个Bug一直卡住
 public class VersionUpdateTimeCheck:SingleTonMonoBehaviour<VersionUpdateTimeCheck>
 {
     private VersionUpdateTimeCheckConfig mLocalConfig = null;

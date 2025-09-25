@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class GameConst
 {
-    public const bool bHotUpdate = false;
+    public const bool bHotUpdate = true;
     public const string ResRootDir = "Assets/ResourceABs/";
     public static readonly string ResRootDirLower = ResRootDir.ToLower();
     public const string feishuURL = "https://open.feishu.cn/open-apis/bot/v2/hook/e6665d6e-eea6-42b4-948b-01a4b1c8c631";

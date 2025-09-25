@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VersionUpdateTimeCheckEditor
 {
-    const string filePath = "Assets/MyScripts/Resources/" + GameConst.versionUpdateTimeCheckFileName;
+    const string filePath = "Assets/ScriptsAOT/Resources/" + GameConst.versionUpdateTimeCheckFileName;
     private static void CreateFile()
     {
         if (!File.Exists(filePath))
