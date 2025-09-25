@@ -35,8 +35,9 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
             yield return Addressables.InitializeAsync();
             yield return AssetsLoader.Instance.AsyncLoadManyAssetsByLabel("InitScene");
         }
-        //InitSceneLuaEnv.Instance.Init();
-        //InitSceneLuaEnv.Instance.LoadInitScene();
+
+        InitSceneLoader.Instance.Init();
+        InitSceneLoader.Instance.LoadInitScene();
     }
 
     public void OnHotUpdateFinish()
