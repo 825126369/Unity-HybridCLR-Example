@@ -32,11 +32,11 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
             {
                 yield return AddressablesRedirectManager.Do();
             }
-            yield return Addressables.InitializeAsync();
+            yield return Addressables.InitializeAsync();;
             yield return AssetsLoader.Instance.AsyncLoadManyAssetsByLabel("InitScene");
         }
 
-        InitSceneLoader.Instance.Init();
+        yield return InitSceneLoader.Instance.Init();
         InitSceneLoader.Instance.LoadInitScene();
     }
 
