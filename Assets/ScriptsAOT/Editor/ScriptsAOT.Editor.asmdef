@@ -1,0 +1,22 @@
+{
+    "name": "ScriptsAOT.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c7030d1e3a8736e4b97046cfe4294e70",
+        "GUID:69448af7b92c7f342b298e06a37122aa",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:2373f786d14518f44b0f475db77ba4de"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

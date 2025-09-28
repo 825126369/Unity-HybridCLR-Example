@@ -1,21 +1,34 @@
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class InitSceneMgr : MonoBehaviour
+public class InitSceneMgr
 {
-    void Start()
+    private GameObject go;
+    public void Start()
     {
-        var mInitSceneHotUpdateManager = GetComponent<InitSceneHotUpdateManager>();
+        var goPreafb = AssetsLoader.Instance.GetAsset("Assets/ResourceABs/InitScene/InitSceneEntry.prefab") as GameObject;
+        go = UnityEngine.Object.Instantiate<GameObject>(goPreafb);
+        go.transform.position = Vector3.zero;
+        go.transform.rotation = Quaternion.identity;
+        go.transform.localScale = Vector3.one;
+        go.SetActive(true);
+
+        var mInitSceneHotUpdateManager = go.GetComponent<InitSceneHotUpdateManager>();
         if (mInitSceneHotUpdateManager == null)
         {
-            mInitSceneHotUpdateManager = gameObject.AddComponent<InitSceneHotUpdateManager>();
+            mInitSceneHotUpdateManager = go.AddComponent<InitSceneHotUpdateManager>();
         }
 
         mInitSceneHotUpdateManager.UpdateFinishFunc = UpdateFinishFunc;
         mInitSceneHotUpdateManager.UpdateErrorFunc = UpdateErrorFunc;
         mInitSceneHotUpdateManager.UpdateProgressFunc = UpdateProgressFunc;
         mInitSceneHotUpdateManager.UpdateVersionFunc = UpdateVersionFunc;
-        StartCoroutine(mInitSceneHotUpdateManager.CheckHotUpdate());
+        mInitSceneHotUpdateManager.StartCoroutine(mInitSceneHotUpdateManager.CheckHotUpdate());
+    }
+
+    public void UnLoad()
+    {
+        Object.Destroy(go);
     }
     
     void UpdateProgressFunc(DownloadStatus mStatus)
