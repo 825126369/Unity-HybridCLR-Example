@@ -14,7 +14,7 @@ public class AddressableGroupContentEditor
         "Assets/ResourceABs/Material/",
         "Assets/ResourceABs/Prefabs/",
         "Assets/ResourceABs/ThemePoker/",
-        "Assets/Scenes/",
+        "Assets/ResourceABs/Scenes/",
     };
 
     [MenuItem("热更新/Gen BundleAllRes/确定？")]

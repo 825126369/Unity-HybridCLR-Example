@@ -1,3 +1,4 @@
+using HybridCLR;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -17,7 +18,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         LeanTween.init();
         UnityMainThreadDispatcher.Instance.Init();
 
-        //LoadMetadataForAOTAssemblies();
+        LoadMetadataForAOTAssemblies();
         StartCoroutine(StartInitSystem());
     }
 
@@ -50,23 +51,20 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
     public IEnumerator StartLoadMainScript()
     {
         yield return 0;
-        //yield return ResCenter.Instance.AsyncInit();
         yield return MainSceneLoader.Instance.Init();
         MainSceneLoader.Instance.LoadScene();
     }
 
-    //private static void LoadMetadataForAOTAssemblies()
-    //{
-    //    /// 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
-    //    /// 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
-    //    /// 
-    //    HomologousImageMode mode = HomologousImageMode.SuperSet;
-    //    foreach (var aotDllName in AOTMetaAssemblyFiles)
-    //    {
-    //        byte[] dllBytes = ReadBytesFromStreamingAssets(aotDllName);
-    //        // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
-    //        LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
-    //        Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
-    //    }
-    //}
+    private static void LoadMetadataForAOTAssemblies()
+    {
+        HomologousImageMode mode = HomologousImageMode.SuperSet;
+        foreach (var aotDllName in HotFixDllHelper.AOTMetaAssemblyFiles)
+        {
+            string fileName = "AotDll/" + aotDllName + ".dll";
+            byte[] dllBytes = Resources.Load<TextAsset>(fileName).bytes;
+            LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
+            Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
+        }
+    }
+
 }

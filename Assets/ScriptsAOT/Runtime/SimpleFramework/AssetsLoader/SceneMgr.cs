@@ -27,7 +27,7 @@ public class SceneMgr : SingleTonMonoBehaviour<SceneMgr>
     {
         if (GameConst.orUseAssetBundle())
         {
-            var realSceneName = "Assets/Scenes/" + sceneName + ".scene";
+            var realSceneName = "Assets/ResourceABs/Scenes/" + sceneName + ".scene";
             realSceneName = realSceneName.ToLower();
             var mInstanceTask = Addressables.LoadSceneAsync(realSceneName, mLoadSceneMode, activateOnLoad);
             mAssetDic[sceneName] = mInstanceTask.WaitForCompletion();

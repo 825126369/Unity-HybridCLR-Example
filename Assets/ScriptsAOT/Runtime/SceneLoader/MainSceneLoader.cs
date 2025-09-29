@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using Unity.Entities;
 using UnityEngine;
 
 public class MainSceneLoader : SingleTonMonoBehaviour<MainSceneLoader>
@@ -24,20 +21,6 @@ public class MainSceneLoader : SingleTonMonoBehaviour<MainSceneLoader>
 
         //InitializeWorld(A);
     }
-
-//    private static void InitializeWorld(params Assembly[] dotsAssemblies)
-//    {
-//#if !UNITY_EDITOR
-//        // dotsAsseemblies为所有包含自定义Component、System等DOTS类型的AOT和热更新程序集
-//        var componentTypes = new HashSet<Type>();
-//        TypeManager.CollectComponentTypes(dotsAssemblies, componentTypes);
-//        TypeManager.AddComponentTypes(dotsAssemblies, componentTypes);
-//        TypeManager.RegisterSystemTypes(dotsAssemblies);
-//        TypeManager.InitializeSharedStatics();
-//        TypeManager.EarlyInitAssemblies(dotsAssemblies);
-//#endif
-//        DefaultWorldInitialization.Initialize("Default World", false);
-//    }
 
     //先加载 dll, 然后挂在这个Prefab下的 脚本才会运行
     public void LoadScene()
