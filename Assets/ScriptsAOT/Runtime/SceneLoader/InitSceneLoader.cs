@@ -7,6 +7,7 @@ public class InitSceneLoader : SingleTonMonoBehaviour<InitSceneLoader>
 {
     private Assembly mHotUpdateAssembly;
     private object mInitSceneMgr;
+
     //ох╪сть dll
     public IEnumerator Init()
     {

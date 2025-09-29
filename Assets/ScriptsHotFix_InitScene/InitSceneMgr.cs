@@ -23,7 +23,7 @@ public class InitSceneMgr
         mInitSceneHotUpdateManager.UpdateErrorFunc = UpdateErrorFunc;
         mInitSceneHotUpdateManager.UpdateProgressFunc = UpdateProgressFunc;
         mInitSceneHotUpdateManager.UpdateVersionFunc = UpdateVersionFunc;
-        mInitSceneHotUpdateManager.StartCoroutine(mInitSceneHotUpdateManager.CheckHotUpdate());
+        GameLauncher.Instance.StartCoroutine(mInitSceneHotUpdateManager.CheckHotUpdate());
     }
 
     public void UnLoad()

@@ -57,14 +57,14 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
 
     private static void LoadMetadataForAOTAssemblies()
     {
-        HomologousImageMode mode = HomologousImageMode.SuperSet;
-        foreach (var aotDllName in HotFixDllHelper.AOTMetaAssemblyFiles)
-        {
-            string fileName = "AotDll/" + aotDllName + ".dll";
-            byte[] dllBytes = Resources.Load<TextAsset>(fileName).bytes;
-            LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
-            Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
-        }
+        //HomologousImageMode mode = HomologousImageMode.SuperSet;
+        //foreach (var aotDllName in HotFixDllHelper.AOTMetaAssemblyFiles)
+        //{
+        //    string fileName = "AotDll/" + aotDllName + ".dll";
+        //    byte[] dllBytes = Resources.Load<TextAsset>(fileName).bytes;
+        //    LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
+        //    Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
+        //}
     }
 
 }
