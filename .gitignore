@@ -79,4 +79,4 @@ HybridCLRData/
 /HybridCLRData/
 /ServerData/
 /Build_WebGL/
-/WebServer/wwwroot/*
+/WebGLStaticServer/wwwroot/*
