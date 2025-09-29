@@ -28,6 +28,7 @@ MonoBehaviour:
   - mscorlib
   - System
   - System.Core
+  - Newtonsoft.Json
   outputLinkFile: HybridCLRGenerate/link.xml
   outputAOTGenericReferenceFile: HybridCLRGenerate/AOTGenericReferences.cs
   maxGenericReferenceIteration: 10

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VersionUpdateTimeCheckEditor
 {
-    const string filePath = "Assets/ScriptsAOT/Runtime/Resources/" + GameConst.versionUpdateTimeCheckFileName;
+    const string filePath = "Assets/StreamingAssets/CustomLocalCache/" + GameConst.versionUpdateTimeCheckFileName;
     private static void CreateFile()
     {
         if (!File.Exists(filePath))
@@ -23,8 +23,8 @@ public class VersionUpdateTimeCheckEditor
     private static void SetDaBaoTime()
     {
         CreateFile();
-        var versionFileContent = AssetDatabase.LoadAssetAtPath<TextAsset>(filePath);
-        VersionUpdateTimeCheckConfig mVersionConfig = JsonTool.FromJson<VersionUpdateTimeCheckConfig>(versionFileContent.text);
+        var versionFileContent = File.ReadAllText(filePath);
+        VersionUpdateTimeCheckConfig mVersionConfig = JsonTool.FromJson<VersionUpdateTimeCheckConfig>(versionFileContent);
 
         if (mVersionConfig.mUpdateTimeDic.ContainsKey(Application.version))
         {

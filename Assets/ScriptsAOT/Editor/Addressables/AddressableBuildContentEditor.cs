@@ -25,12 +25,14 @@ public class AddressableBuildContentEditor : MonoBehaviour
 
     public static void Do1()
     {
+        HotFixEditor.DoCopyHotUpdateDlls();
         AddressableGroupContentEditor.Do();
         BuildContent();
     }
     
     public static void Do2()
     {
+        HotFixEditor.DoCopyHotUpdateDlls();
         AddressableGroupContentEditor.Do();
 
         CheckBuildError();
@@ -82,8 +84,8 @@ public class AddressableBuildContentEditor : MonoBehaviour
 
         FileToolEditor.CopyFolder(RemoteBuildPath, outRootDir + "/" + "AllUpdate_GameRes/");
         FileToolEditor.CopyFolder(RemoteBuildPath, outRootDir + "/" + VersionTool.GetBigVersionNumber(PlayerSettings.bundleVersion) + "/");
-        VersionUpdateTimeCheckEditor.CopyToOutDir(outRootDir);
         StreamingAssetCopyEditor.DoCopy(RemoteBuildPath);
+        VersionUpdateTimeCheckEditor.CopyToOutDir(outRootDir);
     }
 
     private static void CheckBuildError()

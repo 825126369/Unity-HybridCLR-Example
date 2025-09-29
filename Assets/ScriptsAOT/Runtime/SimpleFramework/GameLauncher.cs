@@ -1,7 +1,9 @@
 using HybridCLR;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
 {
@@ -17,8 +19,6 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         Application.targetFrameRate = 60;
         LeanTween.init();
         UnityMainThreadDispatcher.Instance.Init();
-
-        LoadMetadataForAOTAssemblies();
         StartCoroutine(StartInitSystem());
     }
 
@@ -30,6 +30,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
 
     private IEnumerator StartInitSystem()
     {
+        yield return LoadMetadataForAOTAssemblies();
         if (GameConst.orUseAssetBundle())
         {
             if (GameConst.bHotUpdate)
@@ -39,7 +40,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
             yield return Addressables.InitializeAsync();;
             yield return AssetsLoader.Instance.AsyncLoadManyAssetsByLabel("InitScene");
         }
-
+        
         yield return InitSceneLoader.Instance.Init();
     }
 
@@ -55,16 +56,44 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         MainSceneLoader.Instance.LoadScene();
     }
 
-    private static void LoadMetadataForAOTAssemblies()
+    private IEnumerator LoadMetadataForAOTAssemblies()
     {
-        //HomologousImageMode mode = HomologousImageMode.SuperSet;
-        //foreach (var aotDllName in HotFixDllHelper.AOTMetaAssemblyFiles)
-        //{
-        //    string fileName = "AotDll/" + aotDllName + ".dll";
-        //    byte[] dllBytes = Resources.Load<TextAsset>(fileName).bytes;
-        //    LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
-        //    Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
-        //}
+        Dictionary<string, byte[]> mDllDic = new Dictionary<string, byte[]>();
+        foreach (var aotDllName in HotFixDllHelper.AOTMetaAssemblyFiles)
+        {
+            string fileName = "AotDll/" + aotDllName + ".dll.bytes";
+            string dllPath = GameConst.getStreamingAssetsPathUrl(fileName);
+            UnityWebRequest www = UnityWebRequest.Get(dllPath);
+            yield return www.SendWebRequest();
+            
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                byte[] assetData = www.downloadHandler.data;
+                mDllDic[aotDllName] = assetData;
+            }
+            else
+            {
+                Debug.LogError(www.error + ": " + dllPath);
+                www.Dispose();
+                yield break;
+            }
+
+            www.Dispose();
+        }
+
+        HomologousImageMode mode = HomologousImageMode.SuperSet;
+        foreach (var aotDllName in HotFixDllHelper.AOTMetaAssemblyFiles)
+        {
+            Debug.Log("LoadMetadataForAOTAssemblies: 00000: " + aotDllName);
+            //string fileName = "AotDll/" + aotDllName + ".dll";
+            //TextAsset mTextAsset = Resources.Load<TextAsset>(fileName);
+            //Debug.Assert(mTextAsset != null, $"{fileName} == null");
+            byte[] dllBytes = mDllDic[aotDllName];
+            Debug.Assert(dllBytes != null, "dllBytes == null");
+            Debug.Log("LoadMetadataForAOTAssemblies: 11111");
+            LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
+            Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
+        }
     }
 
 }

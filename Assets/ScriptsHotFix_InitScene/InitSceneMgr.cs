@@ -6,8 +6,12 @@ public class InitSceneMgr
     private GameObject go;
     public void Start()
     {
+        Debug.Log("InitSceneMgr Start");
         var goPreafb = AssetsLoader.Instance.GetAsset("Assets/ResourceABs/InitScene/InitSceneEntry.prefab") as GameObject;
+        Debug.Assert(goPreafb != null, "goPreafb == null");
         go = UnityEngine.Object.Instantiate<GameObject>(goPreafb);
+        Debug.Assert(go != null, "go == null");
+
         go.transform.position = Vector3.zero;
         go.transform.rotation = Quaternion.identity;
         go.transform.localScale = Vector3.one;
@@ -18,6 +22,7 @@ public class InitSceneMgr
         {
             mInitSceneHotUpdateManager = go.AddComponent<InitSceneHotUpdateManager>();
         }
+        Debug.Assert(mInitSceneHotUpdateManager != null, "mInitSceneHotUpdateManager == null");
 
         mInitSceneHotUpdateManager.UpdateFinishFunc = UpdateFinishFunc;
         mInitSceneHotUpdateManager.UpdateErrorFunc = UpdateErrorFunc;

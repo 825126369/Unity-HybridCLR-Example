@@ -18,16 +18,20 @@ public class InitSceneHotUpdateManager : MonoBehaviour
 
     public IEnumerator CheckHotUpdate()
     {
+        Debug.Log("InitSceneHotUpdateManager CheckHotUpdate  00000");
         if (GameConst.bHotUpdate)
         {
-            VersionUpdateTimeCheck.Instance.Do();
-            yield return InitSceneVersionCheck.CheckCSharpVersionConfig();
+            Debug.Log("InitSceneHotUpdateManager CheckHotUpdate  11111");
+            yield return VersionUpdateTimeCheck.Do();
+            Debug.Log("InitSceneHotUpdateManager CheckHotUpdate  22222");
+            yield return InitSceneVersionCheck.Do();
+            Debug.Log("InitSceneHotUpdateManager CheckHotUpdate  33333");
             if (InitSceneVersionCheck.orHaveError())
             {
                 DoUpdateError();
                 yield break;
             }
-
+            Debug.Log("InitSceneHotUpdateManager CheckHotUpdate  444444");
             if (InitSceneVersionCheck.orNeedUpdateInLauncher())
             {
                 DoUpdateInLauncher();
@@ -35,6 +39,7 @@ public class InitSceneHotUpdateManager : MonoBehaviour
             }
         }
 
+        Debug.Log("InitSceneHotUpdateManager CheckHotUpdate 555555");
         TestUserManager.Print();
         yield return CheckHotUpdateRes();
     }

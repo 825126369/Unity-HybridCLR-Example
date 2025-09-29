@@ -66,8 +66,6 @@ public static class StreamingAssetCopyEditor
     /// <param name="result"></param>
     public static void DoCopy(string buildRootDir)
     {
-        ClearCache();
-
         var destDir = GetOutDir();
         if(!Directory.Exists(destDir))
         {

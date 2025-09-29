@@ -17,17 +17,29 @@ public static class InitSceneVersionCheck
     private static VersionConfig mWWWConfig = null;
     private static bool bHaveError = false;
 
-    private static void InitLocalVersionConfig()
+    private static IEnumerator InitLocalVersionConfig()
     {
-        TextAsset mAssets = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(GameConst.versionFileName));
-        mLocalConfig = JsonTool.FromJson<VersionConfig>(mAssets.text);
+        string url = GameConst.getStreamingAssetsPathUrl("CustomLocalCache/" + GameConst.versionFileName);
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            string netErrorDes = $"{GameConst.versionUpdateTimeCheckFileName} WWW Error:" + www.responseCode + " | " + url + " | " + www.error;
+            Debug.LogError(netErrorDes);
+            www.Dispose();
+            yield break;
+        }
+
+        mLocalConfig = JsonTool.FromJson<VersionConfig>(www.downloadHandler.text);
         Debug.Assert(mLocalConfig != null, "mLocalConfig == null");
+        Debug.Log("VersionUpdateTimeCheck  5555555555");
+        www.Dispose();
     }
     
-    public static IEnumerator CheckCSharpVersionConfig()
+    public static IEnumerator Do()
     {
         bHaveError = false;
-        InitLocalVersionConfig();
+        yield return InitLocalVersionConfig();
 
         string url = GameConst.GetVersionConfigUrl();
         UnityWebRequest www = UnityWebRequest.Get(url);

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class HotFixEditor
 {
-    const string AOTOutDir = "Assets/ScriptsAOT/Runtime/Resources/AotDll/";
+    const string AOTOutDir = "Assets/StreamingAssets/AotDll/";
     const string HotFixOutDir = "Assets/HotFixScriptsRes/";
 
     //[InitializeOnLoadMethod]
@@ -34,7 +34,7 @@ public static class HotFixEditor
     //}
 
     [MenuItem("Tools/HotFix Dll Copy")]
-    public static void BuildAndCopyABAOTHotUpdateDlls()
+    public static void DoCopyHotUpdateDlls()
     {
         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
         CompileDllCommand.CompileDll(target);
